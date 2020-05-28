@@ -10,6 +10,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<MaterialColor> _color = [
+    Colors.deepOrange,
+    Colors.red,
+    Colors.green,
+    Colors.purple,
+    Colors.brown,
+   ];
+
   Future<List<Data>> getAllData() async {
     var api = "https://jsonplaceholder.typicode.com/photos";
     var data = await http.get(api);
@@ -129,6 +137,7 @@ class _HomeState extends State<Home> {
                     itemCount: snapshot.data.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
+                      MaterialColor mColor = _color[index % _color.length];
                       print("url: ${snapshot.data[index]}");
                       return Card(
                         elevation: 10.0,
@@ -151,9 +160,9 @@ class _HomeState extends State<Home> {
                                 children: <Widget>[
                                   new Container(
                                     child: new CircleAvatar(
-                                      backgroundColor: Colors.red,
                                       child: new Text(
                                           snapshot.data[index].id.toString()),
+                                      backgroundColor: mColor,
                                       foregroundColor: Colors.white,
                                     ),
                                   ),
